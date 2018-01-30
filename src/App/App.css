@@ -24,3 +24,9 @@ img {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.Card {
+  border: 1px solid ghostwhite;
+  height: 300px;
+  width: 200px;
+}
