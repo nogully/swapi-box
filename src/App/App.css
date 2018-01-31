@@ -1,15 +1,10 @@
 .App {
   text-align: center;
+  
 }
 
 img {
   width: 400px;
-}
-
-.App-header {
-  height: 150px;
-  padding: 20px;
-  color: white;
 }
 
 .App-title {
@@ -23,4 +18,10 @@ img {
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.Card {
+  border: 1px solid ghostwhite;
+  height: 300px;
+  width: 200px;
 }
