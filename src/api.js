@@ -1,12 +1,12 @@
 /* eslint-disable */
-const root = ``;
+const root = `../mockData.js`;
 
 function apiGet(url) {
   return fetch(url).then( response => response.json() );
 }
 
 export default {
-  getWeather(display) {
+  getInfo(display) {
     return apiGet(`${root}/${display}.json`);
   }
 };
