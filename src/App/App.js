@@ -26,6 +26,11 @@ class App extends Component {
     this.setState({crawl: randomCrawl})
   }
 
+  getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+
   render() {
     return (
       <div className="div">

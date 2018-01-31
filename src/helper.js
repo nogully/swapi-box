@@ -5,7 +5,7 @@ export default class StarWars {
 
   filmCrawl(number) {
     console.log(this.data.films)
-    return this.data.films.results[number].opening_crawl;
+    return this.data.films.results[number];
   }
 
 }
