@@ -3,7 +3,7 @@ import Header from '../Header/Header'
 import CardContainer from '../CardContainer/CardContainer'
 import Welcome from '../Welcome/Welcome'
 import './App.css';
-import { films, people, vehicles, planets } from '../mockData'
+import mockData from '../mockData'
 import StarWars from '../helper'
 
 const starWarsData = new StarWars();
@@ -12,33 +12,28 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      crawl: '',
+      randomFilm: {},
       favorites: []
     }
   }
 
-  callApi = () => {
+  fetchData = (event) => {
 
   }
 
   componentDidMount = () => {
-
-    const randomCrawl = starWarsData.filmCrawl(0)
-    this.setState({crawl: randomCrawl})
-  }
-
-  getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
+    const randomFilm = starWarsData.filmCrawl(mockData.films)
+    this.setState({ randomFilm })
   }
 
 
   render() {
     return (
       <div className="div">
-        <Header buttonType={this.buttonType} buttonText={this.buttonText} />
+        <Header buttonType={this.buttonType} buttonText={this.buttonText} fetchData={this.fetchData}/>
 
         { this.state.people || this.state.vehicles || this.state.planets ?
-        <CardContainer  /> : <Welcome crawl={this.state.crawl} /> 
+        <CardContainer  /> : <Welcome randomFilm={this.state.randomFilm} /> 
         }
         
       </div>

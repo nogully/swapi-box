@@ -1,9 +1,12 @@
 import React from 'react';
+import Button from '../Button/Button'
 
-const Card = () => {
+const Card = (props) => {
   return (
     <div className="Card">
-      People card
+      <h1>{props.name}</h1>
+      <Button buttonType='light'
+              buttonText='Favorite'/>
     </div>
   )
 

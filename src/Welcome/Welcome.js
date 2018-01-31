@@ -11,11 +11,11 @@ const Welcome = (props) => {
       <div className="crawl">
 
         <div className="title">
-          <p>EPISODE {props.crawl.episode_id}</p>
-          <h1>{props.crawl.title}</h1>
+          <p>EPISODE {props.randomFilm.episode_id}</p>
+          <h1>{props.randomFilm.title}</h1>
         </div>
         
-        <p>{props.crawl.opening_crawl}</p>
+        <p>{props.randomFilm.opening_crawl}</p>
 
       </div>
 
