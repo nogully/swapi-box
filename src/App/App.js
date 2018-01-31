@@ -3,10 +3,10 @@ import Header from '../Header/Header'
 import CardContainer from '../CardContainer/CardContainer'
 import Welcome from '../Welcome/Welcome'
 import './App.css';
-import mockData from '../mockData'
+import { films, people, vehicles, planets } from '../mockData'
 import StarWars from '../helper'
 
-const starWarsData = new StarWars(mockData);
+const starWarsData = new StarWars();
 
 class App extends Component {
   constructor() {
@@ -22,6 +22,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+
     const randomCrawl = starWarsData.filmCrawl(0)
     this.setState({crawl: randomCrawl})
   }
@@ -36,7 +37,7 @@ class App extends Component {
       <div className="div">
         <Header buttonType={this.buttonType} buttonText={this.buttonText} />
 
-        { this.state.people || this.state.vehicles || this.state.planets == '' ?
+        { this.state.people || this.state.vehicles || this.state.planets ?
         <CardContainer  /> : <Welcome crawl={this.state.crawl} /> 
         }
         

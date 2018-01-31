@@ -1,5 +1,4 @@
 import React from 'react';
-import mockData from '../mockData.js'
 
 const Card = () => {
   return (
