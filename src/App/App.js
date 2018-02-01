@@ -6,7 +6,7 @@ import './App.css';
 import mockData from '../mockData'
 import StarWars from '../helper'
 
-const starWarsData = new StarWars();
+const starWarsData = new StarWars(); 
 
 class App extends Component {
   constructor() {
