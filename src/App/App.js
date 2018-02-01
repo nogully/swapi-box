@@ -27,6 +27,11 @@ class App extends Component {
     this.setState({ randomFilm })
   }
 
+  favoriteCard = (event) => {
+    const favCardKey = event.target.name;
+    this.setState({...favorites, favCardKey})
+  }
+
 
   render() {
     return (
@@ -34,7 +39,7 @@ class App extends Component {
         <Header buttonType={this.buttonType} buttonText={this.buttonText} fetchData={this.fetchData}/>
 
         { this.state.people || this.state.vehicles || this.state.planets ?
-        <CardContainer people={this.state.people} /> : <Welcome randomFilm={this.state.randomFilm} /> 
+        <CardContainer favoriteCard={this.favoriteCard} people={this.state.people} /> : <Welcome randomFilm={this.state.randomFilm} /> 
         }
         
       </div>

@@ -44,6 +44,20 @@ export default class StarWars {
      }, [])
   }
 
+  // cleanResident(){
+  //   const unresolvedPromises = arrayOfResidents
+  //   return Promise.all(unresolvedPromises)
+  // }
+
+  fetchBios(arrayOfBios) {
+    const unresolvedPromises = arrayOfBios.map(staffMember => {
+      return fetch(staffMember.info)
+              .then(data => data.json())
+              .then(bio => ({ ...staffMember, ...bio }))
+    })
+    return Promise.all(unresolvedPromises)
+  }
+
   cleanVehicles(vehicles) {
     return vehicles.results.reduce((acc, vehicle) => {
       if (!acc[vehicle.name]) {}

@@ -10,7 +10,7 @@ const Header = (props) => {
       <div className="button-wrapper">
         <Button buttonType='light'
                 buttonText='People'
-                fetchData={props.fetchData}/>
+                function={props.fetchData}/>
         <Button buttonType='light'
                 buttonText='Planets'/>
         <Button buttonType='light'

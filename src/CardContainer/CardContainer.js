@@ -8,7 +8,9 @@ const CardContainer = (props) => {
       <Card name={ person.name } 
             homeworld={ person.homeworld } 
             species={ person.species } 
-            population={ person.population } />
+            population={ person.population }
+            favoriteCard={props.favoriteCard}
+            key={ person.name } />
       )
   })
 

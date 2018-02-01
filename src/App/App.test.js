@@ -40,47 +40,13 @@ describe('App', () => {
 
   })
 
+  it('has a helper function which returns an object with clean planet data', () => {
+
+  })
+
 
   it('calls fetch with the correct params', () => {
    
-  })
-
-  let mockGrocery
-  let mockGroceries
-
-  beforeAll(() => {
-    mockGrocery = { name: 'Oranges', quantity: 3 }
-
-    mockGroceries = [
-      { name: 'Oranges', quantity: 3 }
-    ]
-
-  })
-  it('fetch is called with the correct params', () => {
-
-    const expectedParams = [
-      "/api/v1/groceries",
-      {
-        body: JSON.stringify({ grocery: mockGrocery }),
-        headers: {
-          "Content-Type": "application/json"
-        },
-        method: "POST"
-      }
-    ]
-
-    window.fetch = jest.fn().mockImplementation(() => {
-      return Promise.resolve({
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve({
-          groceries: mockGroceries
-        })
-      })
-    })
-
-    addGrocery(mockGrocery)
-    expect(window.fetch).toHaveBeenCalledWith(...expectedParams)
   })
 
   it('resets the state after adding people', async () => {
