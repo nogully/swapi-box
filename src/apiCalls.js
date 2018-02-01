@@ -1,55 +1,51 @@
 export const getPeople = async () => {
-  const response = await fetch('https://swapi.co/api/people')
-  const data = await response.json()
-  if (data.status <= 400) {
-    return data.value
+  const response = await fetch('https://swapi.co/api/people');
+  const parsed = await response.json();
+  if (parsed.status <= 400) {
+    console.log(cleanPeople(parsed))
+    return cleanPeople(parsed);
   } else { 
-    const errorMessage = "Error " + data.status;
-    console.log(errorMessage)
-    return errorMessage
+    const errorMessage = "Error " + parsed.status;
+    alert(errorMessage);
+    return errorMessage;
   }
+};
+
+export const resolveEndpoint = async (url) => {
+  const response = await fetch(url);
+  const parsed = await response.json();
+  return parsed;
+};
+
+export const getFilmCrawl = async () => {
+  const response = await fetch('https://swapi.co/api/films/');
+  const films = await response.json();
+  const { title, episode_id, opening_crawl } = films.results[getRandomInt(6)]
+  const randomFilm = Object.assign({}, {title}, {episode_id}, {opening_crawl} )
+  return randomFilm
 }
 
-// export const resolvePeopleEndpoints = async (array) => {
-// }
+const getRandomInt = (max) => {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 
-// export default class StarWars { //shouldn't be a class - just a collection of functions 
-//   constructor(data) {
-//     this.data = data
-//   }
-
-//   filmCrawl(films) {
-//     const film = films.results[0];
-//     return  Object.assign({}, {title: film.title},
-//           {episode_id: film.episode_id},
-//           {opening_crawl: film.opening_crawl}
-//       )
-//   }
-
-//   getRandomInt(max) {
-//     return Math.floor(Math.random() * Math.floor(max));
-//   }
-
-
-//   //routeButtonType() { }
-
-//   cleanPeople(people) { //data should be resolved be
-//     return people.results.reduce( async (acc, person, index ) => {
-//       const homeworld = await fetch(person.homeworld);
-//       const homeworldData = await homeworld.json();
-//       const species = await fetch(person.species);
-//       const speciesData = await species.json();
-//       if (!acc[index]) { //this should check to see that person isn't in there
-//         acc[index] = {
-//           name: person.name, 
-//           homeworld: homeworldData.name,
-//           species: speciesData.name, 
-//           population: homeworldData.population
-//         }
-//       }
-//       return acc
-//      }, [])
-//   }
+const cleanPeople = (people) => {
+  return people.results.reduce( async (acc, person, index ) => {
+    const homeworld = await fetch(person.homeworld);
+    const homeworldData = await homeworld.json();
+    const species = await fetch(person.species);
+    const speciesData = await species.json();
+    if (!acc[index]) { //this should check to see that person isn't in there
+      acc[index] = {
+        name: person.name, 
+        homeworld: homeworldData.name,
+        species: speciesData.name, 
+        population: homeworldData.population
+      }
+    }
+    return acc;
+   }, [])
+  }
 
 //   cleanPlanets(planets) {
 //     return planets.results.reduce((acc, planet) => {

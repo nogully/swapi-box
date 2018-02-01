@@ -3,10 +3,7 @@ import Header from '../Header/Header'
 import CardContainer from '../CardContainer/CardContainer'
 import Welcome from '../Welcome/Welcome'
 import './App.css';
-import mockData from '../mockData'
-import StarWars from '../helper'
-
-const starWarsData = new StarWars(); 
+import { getPeople, getFilmCrawl } from '../apiCalls';
 
 class App extends Component {
   constructor() {
@@ -18,12 +15,12 @@ class App extends Component {
   }
 
   fetchData = async (event) => {
-    const people = await starWarsData.cleanPeople(mockData.people);
-    this.setState({ people: people })
+    const people = await getPeople()
+    this.setState({ people })
   }
 
-  componentDidMount = () => {
-    const randomFilm = starWarsData.filmCrawl(mockData.films)
+  componentDidMount = async () => {
+    const randomFilm = await getFilmCrawl()
     this.setState({ randomFilm })
   }
 

@@ -3,8 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { shallow } from 'enzyme';
-import mockData from '../mockData'
-import StarWars from '../helper' 
+import * as apiCalls from '../apiCalls'
 
 
 describe('App', () => {
@@ -20,19 +19,6 @@ describe('App', () => {
   beforeEach(() => {
     wrapper = shallow(<App />);
     const expectedParams = 'https://swapi.co/api/people'
-
-    // window.fetch = jest.fn().mockImplementation(() => {
-    //   return Promise.resolve({
-    //     ok: true,
-    //     status: 200,
-    //     json: () => Promise.resolve({
-    //       people: mockData.people
-    //     })
-    //   })
-    // })
-
-  //   expect(window.fetch).toHaveBeenCalledWith(expectedParams)
-  });
 
   it('exists and matches snapshot', () => {
     expect(wrapper).toBeDefined();
