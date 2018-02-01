@@ -3,11 +3,13 @@ import Button from '../Button/Button'
 
 const Card = (props) => {
   return (
-    <div className="Card">
+    <article className="Card">
       <h1>{props.name}</h1>
+      <h3>{props.homeworld.name}</h3>
+      <h3>{props.species}</h3>
       <Button buttonType='light'
               buttonText='Favorite'/>
-    </div>
+    </article>
   )
 
 }

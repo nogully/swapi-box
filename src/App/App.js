@@ -17,8 +17,9 @@ class App extends Component {
     }
   }
 
-  fetchData = (event) => {
-
+  fetchData = async (event) => {
+    const people = await starWarsData.cleanPeople(mockData.people)
+    this.setState({ people: people })
   }
 
   componentDidMount = () => {
@@ -33,7 +34,7 @@ class App extends Component {
         <Header buttonType={this.buttonType} buttonText={this.buttonText} fetchData={this.fetchData}/>
 
         { this.state.people || this.state.vehicles || this.state.planets ?
-        <CardContainer  /> : <Welcome randomFilm={this.state.randomFilm} /> 
+        <CardContainer people={this.state.people} /> : <Welcome randomFilm={this.state.randomFilm} /> 
         }
         
       </div>
