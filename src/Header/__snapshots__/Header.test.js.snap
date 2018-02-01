@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should have a people, planets, vehicles and favorites button 1`] = `
+<div
+  className="Header"
+>
+  <img
+    alt="Star Wars Logo"
+    className="logo"
+    src="Star_Wars_Yellow_Logo.svg"
+  />
+  <div
+    className="button-wrapper"
+  >
+    <Button
+      buttonText="People"
+      buttonType="light"
+    />
+    <Button
+      buttonText="Planets"
+      buttonType="light"
+    />
+    <Button
+      buttonText="Vehicles"
+      buttonType="light"
+    />
+    <Button
+      buttonText="Favorites"
+      buttonType="dark"
+    />
+  </div>
+</div>
+`;

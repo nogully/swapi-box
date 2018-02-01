@@ -9,6 +9,7 @@ button {
 }
 
 button:hover {
+  background-color: #EEE;
   box-shadow: 2px 2px 5px purple;
 }
 

@@ -9,7 +9,8 @@ const Header = (props) => {
       <img src={logo} className="logo" alt='Star Wars Logo' />
       <div className="button-wrapper">
         <Button buttonType='light'
-                buttonText='People'/>
+                buttonText='People'
+                fetchData={props.fetchData}/>
         <Button buttonType='light'
                 buttonText='Planets'/>
         <Button buttonType='light'

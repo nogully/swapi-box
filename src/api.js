@@ -1,12 +1,26 @@
 /* eslint-disable */
-const root = `../mockData.js`;
+export const apiGet = async (thing) => {
 
-function apiGet(url) {
-  return fetch(url).then( response => response.json() );
-}
+  const response = await fetch('url', { //RESPONSE OBJ 
+    body: JSON.stringify({grocery}), 
+    headers: {
+      'Content-Type' : 'application/json'
+    }, method: 'POST'
+  })
+  // const root = `../mockData.js`;
 
-export default {
-  getInfo(display) {
-    return apiGet(`${root}/${display}.json`);
+  // function apiGet(url) {
+  //   return fetch(url).then( response => response.json() );
+  // }
+
+  // export default {
+  //   getInfo(display) {
+  //     return apiGet(`${root}/${display}.json`);
+  //   }
+  if (response.status <= 200)  {
+    await response.json()
+  } else {
+    throw new Error('An error occurred while fetching')
   }
-};
+  return await response.json()
+}

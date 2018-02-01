@@ -1,9 +1,18 @@
 import React from 'react';
 import Card from '../Card/Card'
 
-const CardContainer = () => {
+const CardContainer = (props) => {
+  console.log(props)
+  const cards = props.people.map((person, index) => {
+    return (
+      <Card name={ person.name } homeworld={ person.homeworld } species={ person.species }/>
+      )
+  })
+
   return (
-    <Card />
+    <div class="CardContainer">
+      { cards }
+    </div>
   )
 
 }
