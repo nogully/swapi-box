@@ -19,12 +19,14 @@ export default class StarWars {
     return people.results.reduce( async (acc, person, index ) => {
       const homeworld = await fetch(person.homeworld);
       const homeworldData = await homeworld.json();
+      const species = await fetch(person.species);
+      const speciesData = await species.json();
       if (!acc[index]) {
         acc[index] = {
           name: person.name, 
-          homeworld: homeworldData,
-          species: person.species, 
-          population: 0,
+          homeworld: homeworldData.name,
+          species: speciesData.name, 
+          population: homeworldData.population
         }
       }
       return acc

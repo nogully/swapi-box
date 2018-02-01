@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   fetchData = async (event) => {
-    const people = await starWarsData.cleanPeople(mockData.people)
+    const people = await starWarsData.cleanPeople(mockData.people);
     this.setState({ people: people })
   }
 
