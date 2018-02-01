@@ -2,14 +2,16 @@ export const getPeople = async () => {
   const response = await fetch('https://swapi.co/api/people')
   const data = await response.json()
   if (data.status <= 400) {
-    return data
+    return data.value
   } else { 
-    return data.status
+    const errorMessage = "Error " + data.status;
+    console.log(errorMessage)
+    return errorMessage
   }
 }
 
-export const resolvePeopleEndpoints = async (array) => {
-}
+// export const resolvePeopleEndpoints = async (array) => {
+// }
 
 // export default class StarWars { //shouldn't be a class - just a collection of functions 
 //   constructor(data) {

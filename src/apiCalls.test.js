@@ -26,7 +26,7 @@ describe('helper', () => {
         json: () => Promise.resolve( {
           status: 200,
           value:  [ {name:'Leia Organa'}, {name:'Luke Skywalker'} ]
-        } )
+        })
       })
     })
 
@@ -36,22 +36,24 @@ describe('helper', () => {
       expect(window.fetch).toHaveBeenCalledWith(expectedParam)
     })
 
-    it('returns a response object if the status code is okay', async () => {
-      const expectedResponse = 
-        {
-          status: 200,
-          value:  [ {name:'Leia Organa'}, {name:'Luke Skywalker'} ]
-        }
+    it('returns an array of people if the status code is okay', async () => {
+      const expectedResponse = [ {name:'Leia Organa'}, {name:'Luke Skywalker'} ]
       const people = await getPeople()
       expect(people).toEqual(expectedResponse)
     })
 
-    it('returns an error if the status code is not okay', async () => {
+    it('returns an error status code if the status code is over 400', async () => {
       window.fetch = jest.fn().mockImplementation(() => {
-        return Promise.resolve({status: 500})
+        return Promise.resolve({
+          status: 500,
+          json: () => Promise.resolve( {
+            status: 500
+          }) 
+        })
       })
+      const expectedError = 'Error 500'
       const error = await getPeople()
-      expect(error).toEqual(500)
+      expect(error).toEqual(expectedError)
     })
   })
 
