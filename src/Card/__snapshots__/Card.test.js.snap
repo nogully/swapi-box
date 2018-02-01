@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card exists and matches snapshot 1`] = `
+<article
+  className="Card undefined"
+>
+  <h1 />
+  <h3 />
+  <h3>
+    Homeworld: 
+  </h3>
+  <h3>
+    Population: 
+  </h3>
+  <Button
+    buttonText="Favorite"
+    buttonType="light"
+  />
+</article>
+`;

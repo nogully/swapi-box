@@ -10,12 +10,24 @@ import StarWars from '../helper'
 describe('App', () => {
   let wrapper
   let starWarsData = new StarWars(mockData);
+  let mockPerson = starWarsData.cleanPeople(mockData.people)[0]
+console.log(mockPerson)
 
   beforeEach(() => {
     wrapper = shallow(<App />);
-    window.fetch = jest.fn().mockImplementation(() =>Promise.resolve(json: () => Promise.resolve({ 
-        people: starWarsData.people })
-    ) )
+    const expectedParams = 'https://swapi.co/api/people'
+
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve({
+          people: mockData.people
+        })
+      })
+    })
+
+    expect(window.fetch).toHaveBeenCalledWith(expectedParams)
   });
 
   it('exists and matches snapshot', () => {
@@ -32,8 +44,12 @@ describe('App', () => {
   })
 
   it('has a helper function which returns an object with clean people data', () => {
-    expect(typeof starWarsData.cleanPeople(mockData.people)).toBe('object')
+    expect(typeof starWarsData.cleanPeople(mockData.people)).toBe('array')
     expect(starWarsData.cleanPeople(mockData.people)['Luke Skywalker'].name).toEqual('Luke Skywalker')
+  })
+
+  it('has a helper function which returns an object with clean planet data', () => {
+    expect()
   })
 
   it('has a helper function which returns an object with clean planet data', () => {
@@ -43,44 +59,6 @@ describe('App', () => {
 
   it('calls fetch with the correct params', () => {
    
-  })
-
-  let mockGrocery
-  let mockGroceries
-
-  beforeAll(() => {
-    mockGrocery = { name: 'Oranges', quantity: 3 }
-
-    mockGroceries = [
-      { name: 'Oranges', quantity: 3 }
-    ]
-
-  })
-  it('fetch is called with the correct params', () => {
-
-    const expectedParams = [
-      "/api/v1/groceries",
-      {
-        body: JSON.stringify({ grocery: mockGrocery }),
-        headers: {
-          "Content-Type": "application/json"
-        },
-        method: "POST"
-      }
-    ]
-
-    window.fetch = jest.fn().mockImplementation(() => {
-      return Promise.resolve({
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve({
-          groceries: mockGroceries
-        })
-      })
-    })
-
-    addGrocery(mockGrocery)
-    expect(window.fetch).toHaveBeenCalledWith(...expectedParams)
   })
 
   it('resets the state after adding people', async () => {

@@ -12,7 +12,7 @@ describe('Card', () => {
   const starWarsData = new StarWars(mockData);
 
   beforeEach(() => {
-    wrapper = shallow(<App />);
+    wrapper = shallow(<Card />);
     // window.fetch = jest.fn().mockImplementation(() =>Promise.resolve(json: () => Promise.resolve({ groceries: mockGroceries }) ) })
     // })
   });
