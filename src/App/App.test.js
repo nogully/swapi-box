@@ -10,12 +10,24 @@ import StarWars from '../helper'
 describe('App', () => {
   let wrapper
   let starWarsData = new StarWars(mockData);
+  let mockPerson = starWarsData.cleanPeople(mockData.people)[0]
+console.log(mockPerson)
 
   beforeEach(() => {
     wrapper = shallow(<App />);
-    window.fetch = jest.fn().mockImplementation(() =>Promise.resolve(json: () => Promise.resolve({ 
-        people: starWarsData.people })
-    ) )
+    const expectedParams = 'https://swapi.co/api/people'
+
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve({
+          people: mockData.people
+        })
+      })
+    })
+
+    expect(window.fetch).toHaveBeenCalledWith(expectedParams)
   });
 
   it('exists and matches snapshot', () => {
@@ -32,12 +44,12 @@ describe('App', () => {
   })
 
   it('has a helper function which returns an object with clean people data', () => {
-    expect(typeof starWarsData.cleanPeople(mockData.people)).toBe('object')
+    expect(typeof starWarsData.cleanPeople(mockData.people)).toBe('array')
     expect(starWarsData.cleanPeople(mockData.people)['Luke Skywalker'].name).toEqual('Luke Skywalker')
   })
 
   it('has a helper function which returns an object with clean planet data', () => {
-
+    expect()
   })
 
   it('has a helper function which returns an object with clean planet data', () => {

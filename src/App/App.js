@@ -29,7 +29,11 @@ class App extends Component {
 
   favoriteCard = (event) => {
     const favCardKey = event.target.name;
-    this.setState({...favorites, favCardKey})
+    if (!this.state.favorites.includes(favCardKey)) {
+      this.setState({ favorites: [...this.state.favorites, favCardKey] })
+    } else {
+      this.setState({ favorites: [...this.state.favorites.filter(key => !favCardKey)]})
+    }
   }
 
 
@@ -39,7 +43,7 @@ class App extends Component {
         <Header buttonType={this.buttonType} buttonText={this.buttonText} fetchData={this.fetchData}/>
 
         { this.state.people || this.state.vehicles || this.state.planets ?
-        <CardContainer favoriteCard={this.favoriteCard} people={this.state.people} /> : <Welcome randomFilm={this.state.randomFilm} /> 
+        <CardContainer favoriteCard={this.favoriteCard} favorites={this.state.favorites} people={this.state.people} /> : <Welcome randomFilm={this.state.randomFilm} /> 
         }
         
       </div>
