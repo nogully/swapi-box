@@ -1,10 +1,16 @@
 .Card {
-  border: 1px solid ghostwhite;
+  background-color: #0A0847;
+  border: 1px solid #0A0847;
   height: 300px;
+  margin: 10px;
+  opacity: .8;
   width: 200px;
 }
 
-
 .active {
-  border: 2px solid blue;
+  background-color: purple;
+}
+
+.Card h1 {
+  color: #feda4a;
 }

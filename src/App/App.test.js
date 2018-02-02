@@ -3,32 +3,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { shallow } from 'enzyme';
-import mockData from '../mockData'
-import StarWars from '../helper' 
+import * as apiCalls from '../apiCalls'
 
 
 describe('App', () => {
   let wrapper
-  let starWarsData = new StarWars(mockData);
-  let mockPerson = starWarsData.cleanPeople(mockData.people)[0]
-console.log(mockPerson)
+  // let starWarsData = new StarWars(mockData);
+  let mockPerson = {
+          name: "Leia Organa",
+          homeworld: "https://swapi.co/api/planets/1/",
+          species: "Human",
+          population: "https://swapi.co/api/planets/1/"
+        }
 
   beforeEach(() => {
     wrapper = shallow(<App />);
     const expectedParams = 'https://swapi.co/api/people'
-
-    window.fetch = jest.fn().mockImplementation(() => {
-      return Promise.resolve({
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve({
-          people: mockData.people
-        })
-      })
-    })
-
-    expect(window.fetch).toHaveBeenCalledWith(expectedParams)
-  });
 
   it('exists and matches snapshot', () => {
     expect(wrapper).toBeDefined();
@@ -39,33 +29,27 @@ console.log(mockPerson)
     expect(wrapper.state('favorites')).toEqual([])
   })
 
- it('should start with a randomFilm state object from which to draw the crawl', () => {
+  it('should start with a randomFilm state object from which to draw the crawl', () => {
     expect(wrapper.state('randomFilm').title).toEqual('A New Hope')
   })
 
-  it('has a helper function which returns an object with clean people data', () => {
-    expect(typeof starWarsData.cleanPeople(mockData.people)).toBe('array')
-    expect(starWarsData.cleanPeople(mockData.people)['Luke Skywalker'].name).toEqual('Luke Skywalker')
-  })
-
-  it('has a helper function which returns an object with clean planet data', () => {
-    expect()
-  })
-
-  it('has a helper function which returns an object with clean planet data', () => {
-
-  })
-
-
-  it('calls fetch with the correct params', () => {
+  it.skip('on button click (people, planets, vehicles), resets the state with the corresponding array after adding a category', async () => {
    
   })
 
-  it('resets the state after adding people', async () => {
+  it.skip('calls fetch with the correct params', () => {
    
   })
-
-  it('calls the updateGroceryList callback after adding a new grocery', async () => {
+  
+  it.skip('populates the CardContainer with the correct kind of cards', async () => {
  
+  })
+
+  it.skip('on click of Favorite button, adds Favorited cards to the state.favorites array', async () => {
+ 
+  })
+
+  it.skip('on 2nd click of Favorite button, removes un-Favorited cards from the state.favorites array', async () => {
+
   })
 })

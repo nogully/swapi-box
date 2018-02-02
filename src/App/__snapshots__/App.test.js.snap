@@ -4,7 +4,9 @@ exports[`App exists and matches snapshot 1`] = `
 <div
   className="div"
 >
-  <Header />
+  <Header
+    fetchData={[Function]}
+  />
   <Welcome
     randomFilm={
       Object {
