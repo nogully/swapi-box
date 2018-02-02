@@ -1,17 +1,3 @@
-export const getPeople = async () => {
-  const response = await fetch('https://swapi.co/api/people');
-  if (response.status <= 400) {
-    const parsed = await response.json();
-    console.log(parsed.results);
-    return cleanPeople(parsed.results);
-  } else { 
-    const parsed = await response.json();
-    const errorMessage = "Error " + parsed.status;
-    alert(errorMessage);
-    return errorMessage;
-  }
-};
-
 export const resolveEndpoint = async (url) => {
   const response = await fetch(url);
   if (response.status <= 400) {
@@ -37,6 +23,20 @@ const getRandomInt = () => {
   return Math.floor(Math.random() * Math.floor(6));
 }
 
+export const getPeople = async () => {
+  const response = await fetch('https://swapi.co/api/people');
+  if (response.status <= 400) {
+    const parsed = await response.json();
+    console.log(parsed.results);
+    return cleanPeople(parsed.results);
+  } else { 
+    const parsed = await response.json();
+    const errorMessage = "Error " + parsed.status;
+    alert(errorMessage);
+    return errorMessage;
+  }
+};
+
 const cleanPeople = (people) => {
   const unresolvedPromises = people.map( async (person) => {
     const { name, homeworld, species } = person;
@@ -54,28 +54,51 @@ const cleanPeople = (people) => {
 }
 
 export const getPlanets = async () => {
-  console.log('get planets!!')
+  console.log('getplanets')
+  const response = await fetch('https://swapi.co/api/planets/');
+  if (response.status <= 400) {
+    const parsed = await response.json();
+    console.log(parsed.results);
+    return await cleanPlanets(parsed.results);
+  } else { 
+    const parsed = await response.json();
+    const errorMessage = "Error " + parsed.status;
+    alert(errorMessage);
+    return errorMessage;
+  }
+}
+
+const cleanPlanets = async (planets) => {
+  console.log('cleanplanets!')
+  const unresolvedPromises = planets.map( async (planet) => {
+    const { name, terrain, population, climate, residents } = planet;
+    // const residentData = await cleanResidents(residents);
+    const cleaned = Object.assign({}, 
+      {name: name}, 
+      {terrain: terrain}, 
+      {climate: climate}, 
+      {population: population}, 
+      {residents: residents }
+    )
+    return cleaned;
+  })
+  return Promise.all(unresolvedPromises)
 }
 
 export const getVehicles = async () => {
   console.log('get vehicles!!')
 }
 
-//   cleanPlanets(planets) {
-//     return planets.results.reduce((acc, planet) => {
-//       if (!acc[planet.name]) {
-//         acc[planet.name] = {
-//           name: planet.name
-//         }
-//       }
-//       return acc
-//      }, [])
-//   }
 
-//   // cleanResident(){
-//   //   const unresolvedPromises = arrayOfResidents
-//   //   return Promise.all(unresolvedPromises)
-//   // }
+
+const cleanResidents = async (residents) => {
+  const unresolvedPromises = residents.reduce( async (acc, url) => {
+    const person = await resolveEndpoint(url);
+    acc.concat(', ', person.name);
+    return acc;
+  }, '')
+  return Promise.all(unresolvedPromises)
+}
 
 //   fetchBios(arrayOfBios) {
 //     const unresolvedPromises = arrayOfBios.map(staffMember => {

@@ -25,21 +25,25 @@ class App extends Component {
             favorites: this.state.favorites, 
             people: people,
             category: 'people' })
-        }
+        } else { this.setState({category: 'people'}) }
         break;
       case 'Planets':
         if (!this.state.planets) {
           const planets = await getPlanets()
-          this.setState({ ...this.state.randomFilm, ...this.state.favorites, planets,
-                        category: 'planets' })
-        }
+          this.setState({ randomFilm: this.state.randomFilm,
+            favorites: this.state.favorites, 
+            planets: planets,
+            category: 'planets' })
+        } else { this.setState({category: 'planets'}) }
         break;
       case 'Vehicles':
         if (!this.state.vehicles) {
           const vehicles = await getVehicles()
-          this.setState({ ...this.state.randomFilm, ...this.state.favorites, vehicles,
-                        category: 'vehicles' })
-        }
+          this.setState({ randomFilm: this.state.randomFilm,
+            favorites: this.state.favorites, 
+            vehicles: vehicles,
+            category: 'vehicles' })
+        } else { this.setState({category: 'vehicles'}) }
         break;
       default: console.log('error')
     }
