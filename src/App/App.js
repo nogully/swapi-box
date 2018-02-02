@@ -13,7 +13,6 @@ class App extends Component {
       favorites: []
     }
   }
-
   fetchData = async (event) => {
     const people = await getPeople()
     this.setState({ people })

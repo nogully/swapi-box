@@ -1,10 +1,11 @@
 export const getPeople = async () => {
   const response = await fetch('https://swapi.co/api/people');
-  const parsed = await response.json();
-  if (parsed.status <= 400) {
-    console.log(cleanPeople(parsed))
-    return cleanPeople(parsed);
+  if (response.status <= 400) {
+    const parsed = await response.json();
+    console.log(parsed.results);
+    return cleanPeople(parsed.results);
   } else { 
+    const parsed = await response.json();
     const errorMessage = "Error " + parsed.status;
     alert(errorMessage);
     return errorMessage;
@@ -13,39 +14,44 @@ export const getPeople = async () => {
 
 export const resolveEndpoint = async (url) => {
   const response = await fetch(url);
-  const parsed = await response.json();
-  return parsed;
+  if (response.status <= 400) {
+    const parsed = await response.json();
+    return parsed;
+  } else { 
+    const parsed = await response.json();
+    const errorMessage = "Error " + parsed.status;
+    alert(errorMessage);
+    return errorMessage;
+  }
 };
 
 export const getFilmCrawl = async () => {
   const response = await fetch('https://swapi.co/api/films/');
   const films = await response.json();
-  const { title, episode_id, opening_crawl } = films.results[getRandomInt(6)]
-  const randomFilm = Object.assign({}, {title}, {episode_id}, {opening_crawl} )
-  return randomFilm
+  const { title, episode_id, opening_crawl } = films.results[getRandomInt()]
+  const randomFilm = Object.assign( {}, {title}, {episode_id}, {opening_crawl} )
+  return randomFilm;
 }
 
-const getRandomInt = (max) => {
-  return Math.floor(Math.random() * Math.floor(max));
+const getRandomInt = () => {
+  return Math.floor(Math.random() * Math.floor(6));
 }
 
 const cleanPeople = (people) => {
-  return people.results.reduce( async (acc, person, index ) => {
-    const homeworld = await fetch(person.homeworld);
-    const homeworldData = await homeworld.json();
-    const species = await fetch(person.species);
-    const speciesData = await species.json();
-    if (!acc[index]) { //this should check to see that person isn't in there
-      acc[index] = {
-        name: person.name, 
-        homeworld: homeworldData.name,
-        species: speciesData.name, 
-        population: homeworldData.population
-      }
-    }
-    return acc;
-   }, [])
-  }
+  const unresolvedPromises = people.map( async (person) => {
+    const { name, homeworld, species } = person;
+    const homeworldData = await resolveEndpoint(homeworld);
+    const speciesData = await resolveEndpoint(species)
+    const cleaned = Object.assign({}, 
+      {name: name}, 
+      {homeworld: homeworldData.name}, 
+      {species: speciesData.name}, 
+      {population: homeworldData.population}
+    )
+    return cleaned;
+  })
+  return Promise.all(unresolvedPromises)
+}
 
 //   cleanPlanets(planets) {
 //     return planets.results.reduce((acc, planet) => {
