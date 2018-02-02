@@ -12,11 +12,14 @@ const Header = (props) => {
                 buttonText='People'
                 function={props.fetchData}/>
         <Button buttonType='light'
-                buttonText='Planets'/>
+                buttonText='Planets'
+                function={props.fetchData}/>
         <Button buttonType='light'
-                buttonText='Vehicles'/>
+                buttonText='Vehicles'
+                function={props.fetchData}/>
         <Button buttonType='dark'
-                buttonText='Favorites'/>
+                buttonText='Favorites'
+                function={props.displayFavorites}/>
       </div>
     </div>
   )

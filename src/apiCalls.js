@@ -53,6 +53,14 @@ const cleanPeople = (people) => {
   return Promise.all(unresolvedPromises)
 }
 
+export const getPlanets = async () => {
+  console.log('get planets!!')
+}
+
+export const getVehicles = async () => {
+  console.log('get vehicles!!')
+}
+
 //   cleanPlanets(planets) {
 //     return planets.results.reduce((acc, planet) => {
 //       if (!acc[planet.name]) {
