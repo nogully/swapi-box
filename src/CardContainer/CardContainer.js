@@ -26,6 +26,9 @@ const CardContainer = (props) => {
           <Card name={ planet.name } 
                 species={ planet.species } 
                 population={ planet.population }
+                residents={ planet.residents }
+                climate={ planet.climate }
+                terrain={ planet.terrain }
                 favoriteCard={props.favoriteCard}
                 active={isActive}
                 key={ planet.name } />

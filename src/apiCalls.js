@@ -27,7 +27,6 @@ export const getPeople = async () => {
   const response = await fetch('https://swapi.co/api/people');
   if (response.status <= 400) {
     const parsed = await response.json();
-    console.log(parsed.results);
     return cleanPeople(parsed.results);
   } else { 
     const parsed = await response.json();
@@ -54,7 +53,6 @@ const cleanPeople = (people) => {
 }
 
 export const getPlanets = async () => {
-  console.log('getplanets')
   const response = await fetch('https://swapi.co/api/planets/');
   if (response.status <= 400) {
     const parsed = await response.json();
@@ -69,18 +67,25 @@ export const getPlanets = async () => {
 }
 
 const cleanPlanets = async (planets) => {
-  console.log('cleanplanets!')
   const unresolvedPromises = planets.map( async (planet) => {
     const { name, terrain, population, climate, residents } = planet;
-    // const residentData = await cleanResidents(residents);
+    const residentData = await cleanResidents(residents);
     const cleaned = Object.assign({}, 
       {name: name}, 
       {terrain: terrain}, 
       {climate: climate}, 
       {population: population}, 
-      {residents: residents }
+      {residents: residentData.join(', ') }
     )
     return cleaned;
+  })
+  return Promise.all(unresolvedPromises)
+}
+
+const cleanResidents = async (residents) => {
+  const unresolvedPromises = residents.map( async (resident) => {
+    const person = await resolveEndpoint(resident);
+    return person.name 
   })
   return Promise.all(unresolvedPromises)
 }
@@ -89,30 +94,6 @@ export const getVehicles = async () => {
   console.log('get vehicles!!')
 }
 
-
-
-const cleanResidents = async (residents) => {
-  const unresolvedPromises = residents.reduce( async (acc, url) => {
-    const person = await resolveEndpoint(url);
-    acc.concat(', ', person.name);
-    return acc;
-  }, '')
-  return Promise.all(unresolvedPromises)
+const cleanVehicles = async () => {
+  
 }
-
-//   fetchBios(arrayOfBios) {
-//     const unresolvedPromises = arrayOfBios.map(staffMember => {
-//       return fetch(staffMember.info)
-//               .then(data => data.json())
-//               .then(bio => ({ ...staffMember, ...bio }))
-//     })
-//     return Promise.all(unresolvedPromises)
-//   }
-
-//   cleanVehicles(vehicles) {
-//     return vehicles.results.reduce((acc, vehicle) => {
-//       if (!acc[vehicle.name]) {}
-//       return acc
-//     }, [])
-//   }
-// }
