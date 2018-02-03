@@ -4,23 +4,27 @@ export const resolveEndpoint = async (url) => {
     const parsed = await response.json();
     return parsed;
   } catch (error) { 
-    throw new Error('resolveEndpoint')
+    console.log('resolveEndpoint')
+    return "Error"
   }
 };
 
-export const getFilmCrawl = async () => {
+export const getFilmCrawl = async (randomNumber) => {
+  debugger;
   try {
     const response = await fetch('https://swapi.co/api/films/');
     const films = await response.json();
-    const { title, episode_id, opening_crawl } = films.results[getRandomInt()]
+    const { title, episode_id, opening_crawl } = films.results[ randomNumber ]
     const randomFilm = Object.assign( {}, {title}, {episode_id}, {opening_crawl} )
     return randomFilm;
-  } catch (error) { 
-    throw new Error('getFilmCrawl')
+  } 
+  catch (error) { 
+    console.log('getFilmCrawl')
+    return "Error"
   }
 }
 
-const getRandomInt = () => {
+export const getRandomInt = () => {
   return Math.floor(Math.random() * Math.floor(6));
 }
 
@@ -30,7 +34,8 @@ export const getPeople = async () => {
     const parsed = await response.json();
     return cleanPeople(parsed.results);
   } catch (error) { 
-    throw new Error('getPeople')
+    console.log('getPeople')
+    return "Error"
   }
 };
 
@@ -93,7 +98,7 @@ export const getVehicles = async () => {
   return cleaned;
 }
 
-const cleanVehicles = async (vehicles) => {
+export const cleanVehicles = async (vehicles) => {
   const unresolvedPromises = vehicles.map( async (vehicle) => {
     const { name, model, vehicle_class, passengers } = vehicle;
     return Object.assign({}, 

@@ -12,22 +12,26 @@ exports[`Header should have a people, planets, vehicles and favorites button 1`]
   <div
     className="button-wrapper"
   >
-    <Button
-      buttonText="People"
-      buttonType="light"
-    />
-    <Button
-      buttonText="Planets"
-      buttonType="light"
-    />
-    <Button
-      buttonText="Vehicles"
-      buttonType="light"
-    />
-    <Button
-      buttonText="Favorites"
-      buttonType="dark"
-    />
+    <button
+      className="light"
+    >
+      people
+    </button>
+    <button
+      className="light"
+    >
+      planets
+    </button>
+    <button
+      className="light"
+    >
+      vehicles
+    </button>
+    <button
+      className="dark"
+    >
+      favorites
+    </button>
   </div>
 </div>
 `;

@@ -1,11 +1,10 @@
 import React from 'react';
-import Button from '../Button/Button'
 import './Card.css'
 
 const Card = ({ data, favoriteCard, isActive, key }) => {
-  const keys = Object.keys(data).filter( key => key !== 'name')
-  const elements = keys.map( (key, index) => {
-    return <p key={index}>{`${key} : ${data[key]}`}</p>
+  const attributes = Object.keys(data).filter( attribute => attribute !== 'name')
+  const elements = attributes.map( (attribute, index) => {
+    return <p key={index}>{`${attribute} : ${data[attribute]}`}</p>
   })
 
   return (
@@ -24,9 +23,3 @@ const Card = ({ data, favoriteCard, isActive, key }) => {
 }
 
 export default Card;
-
-   // <Button buttonType='light'
-   //            buttonText='Favorite'
-   //            buttonFunction={ favoriteCard }
-   //            data={ data }
-   //            name={ data.name } />
