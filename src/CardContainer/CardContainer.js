@@ -2,36 +2,51 @@ import React from 'react';
 import Card from '../Card/Card'
 import './CardContainer.css'
 
-const CardContainer = (props) => {
+const CardContainer = ({category, favorites, cardArray, favoriteCard}) => { //refactor to add the whole person obj
   var cards = []
-  switch (props.category) {
+  switch (category) {
     case 'people': 
-      cards = props.cardArray.map((person, index) => {
-        const isActive = props.favorites.includes(person.name) ? 'active' : ''
+      cards = cardArray.map((person, index) => {
+        const isActive = favorites.includes(person) ? 'active' : ''
         return (
-          <Card name={ person.name } 
-                homeworld={ person.homeworld } 
-                species={ person.species } 
-                population={ person.population }
-                favoriteCard={props.favoriteCard}
-                active={isActive}
+          <Card data={ person }
+                favoriteCard={favoriteCard}
+                isActive={isActive}
                 key={ person.name } />
           ) 
       })
       break;
     case 'planets':
-      cards = props.cardArray.map((planet, index) => {
-        const isActive = props.favorites.includes(planet.name) ? 'active' : ''
+      cards = cardArray.map((planet, index) => {
+        const isActive = favorites.includes(planet) ? 'active' : ''
         return (
-          <Card name={ planet.name } 
-                species={ planet.species } 
-                population={ planet.population }
-                residents={ planet.residents }
-                climate={ planet.climate }
-                terrain={ planet.terrain }
-                favoriteCard={props.favoriteCard}
-                active={isActive}
+          <Card data={ planet }
+                favoriteCard={favoriteCard}
+                isActive={isActive}
                 key={ planet.name } />
+          ) 
+      })
+      break;
+    case 'vehicles':
+      cards = cardArray.map((vehicle, index) => {
+        const isActive = favorites.includes(vehicle) ? 'active' : ''
+        return (
+          <Card data={ vehicle } 
+                favoriteCard={ favoriteCard }
+                isActive={ isActive }
+                key={ vehicle.name } />
+          ) 
+      })
+      break;
+
+    case 'favorites':
+      cards = cardArray.map((favorite, index) => {
+        const isActive = favorites.includes(favorite) ? 'active' : ''
+        return (
+          <Card data={ favorite } 
+                isActive={isActive} 
+                favoriteCard={ favoriteCard }
+                key={ favorite.name } />
           ) 
       })
       break;

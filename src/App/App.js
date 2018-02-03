@@ -17,7 +17,7 @@ class App extends Component {
   fetchData = async (event) => {
     console.log(event.target.textContent)
     switch (event.target.textContent) {
-      case 'People': 
+      case 'people': 
         if (!this.state.people) {
           const people = await getPeople()
           this.setState({ 
@@ -27,19 +27,21 @@ class App extends Component {
             category: 'people' })
         } else { this.setState({category: 'people'}) }
         break;
-      case 'Planets':
+      case 'planets':
         if (!this.state.planets) {
           const planets = await getPlanets()
-          this.setState({ randomFilm: this.state.randomFilm,
+          this.setState({ 
+            randomFilm: this.state.randomFilm,
             favorites: this.state.favorites, 
             planets: planets,
             category: 'planets' })
         } else { this.setState({category: 'planets'}) }
         break;
-      case 'Vehicles':
+      case 'vehicles':
         if (!this.state.vehicles) {
           const vehicles = await getVehicles()
-          this.setState({ randomFilm: this.state.randomFilm,
+          this.setState({ 
+            randomFilm: this.state.randomFilm,
             favorites: this.state.favorites, 
             vehicles: vehicles,
             category: 'vehicles' })
@@ -54,22 +56,19 @@ class App extends Component {
     this.setState({ randomFilm })
   }
 
-  favoriteCard = (event) => {
-    const favCardKey = event.target.name;
-    if (!this.state.favorites.includes(favCardKey)) {
-      this.setState({ favorites: [...this.state.favorites, favCardKey] })
+  favoriteCard = (card) => {
+    if (!this.state.favorites.includes(card)) {
+      this.setState({ 
+        favorites: [...this.state.favorites, card] })
     } else {
-      this.setState({ favorites: [...this.state.favorites.filter(key => !favCardKey)]})
+      this.setState({ 
+        favorites: [...this.state.favorites.filter(favorite => favorite !== card)]})
     }
   }
 
-  displayFavorites = () => {
-    // if (this.state.favorites.length) {
-    //   return 
-    // } else {
-
-    // }
-    console.log(this.state.favorites)
+  displayFavorites = (event) => { 
+    const category = 'favorites'
+    this.setState({ category })
   }
 
 
