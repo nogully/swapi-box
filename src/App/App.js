@@ -30,7 +30,8 @@ class App extends Component {
       case 'Planets':
         if (!this.state.planets) {
           const planets = await getPlanets()
-          this.setState({ randomFilm: this.state.randomFilm,
+          this.setState({ 
+            randomFilm: this.state.randomFilm,
             favorites: this.state.favorites, 
             planets: planets,
             category: 'planets' })
@@ -39,7 +40,8 @@ class App extends Component {
       case 'Vehicles':
         if (!this.state.vehicles) {
           const vehicles = await getVehicles()
-          this.setState({ randomFilm: this.state.randomFilm,
+          this.setState({ 
+            randomFilm: this.state.randomFilm,
             favorites: this.state.favorites, 
             vehicles: vehicles,
             category: 'vehicles' })
@@ -57,9 +59,11 @@ class App extends Component {
   favoriteCard = (event) => {
     const favCardKey = event.target.name;
     if (!this.state.favorites.includes(favCardKey)) {
-      this.setState({ favorites: [...this.state.favorites, favCardKey] })
+      this.setState({ 
+        favorites: [...this.state.favorites, favCardKey] })
     } else {
-      this.setState({ favorites: [...this.state.favorites.filter(key => !favCardKey)]})
+      this.setState({ 
+        favorites: [...this.state.favorites.filter(key => !favCardKey)]})
     }
   }
 

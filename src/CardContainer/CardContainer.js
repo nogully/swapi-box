@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '../Card/Card'
 import './CardContainer.css'
 
-const CardContainer = (props) => {
+const CardContainer = (props) => { //refactor to add the whole person obj
   var cards = []
   switch (props.category) {
     case 'people': 
@@ -32,6 +32,20 @@ const CardContainer = (props) => {
                 favoriteCard={props.favoriteCard}
                 active={isActive}
                 key={ planet.name } />
+          ) 
+      })
+      break;
+    case 'vehicles':
+      cards = props.cardArray.map((vehicle, index) => {
+        const isActive = props.favorites.includes(vehicle.name) ? 'active' : ''
+        return (
+          <Card name={ vehicle.name } 
+                model={ vehicle.model } 
+                vehicle_class={ vehicle.vehicle_class }
+                passengers={ vehicle.passengers }
+                favoriteCard={props.favoriteCard}
+                active={isActive}
+                key={ vehicle.name } />
           ) 
       })
       break;

@@ -1,22 +1,23 @@
 export const resolveEndpoint = async (url) => {
-  const response = await fetch(url);
-  if (response.status <= 400) {
+  try {
+    const response = await fetch(url);
     const parsed = await response.json();
     return parsed;
-  } else { 
-    const parsed = await response.json();
-    const errorMessage = "Error " + parsed.status;
-    alert(errorMessage);
-    return errorMessage;
+  } catch (error) { 
+    throw new Error('resolveEndpoint')
   }
 };
 
 export const getFilmCrawl = async () => {
-  const response = await fetch('https://swapi.co/api/films/');
-  const films = await response.json();
-  const { title, episode_id, opening_crawl } = films.results[getRandomInt()]
-  const randomFilm = Object.assign( {}, {title}, {episode_id}, {opening_crawl} )
-  return randomFilm;
+  try {
+    const response = await fetch('https://swapi.co/api/films/');
+    const films = await response.json();
+    const { title, episode_id, opening_crawl } = films.results[getRandomInt()]
+    const randomFilm = Object.assign( {}, {title}, {episode_id}, {opening_crawl} )
+    return randomFilm;
+  } catch (error) { 
+    throw new Error('getFilmCrawl')
+  }
 }
 
 const getRandomInt = () => {
@@ -24,15 +25,12 @@ const getRandomInt = () => {
 }
 
 export const getPeople = async () => {
-  const response = await fetch('https://swapi.co/api/people');
-  if (response.status <= 400) {
+  try {
+    const response = await fetch('https://swapi.co/api/people');
     const parsed = await response.json();
     return cleanPeople(parsed.results);
-  } else { 
-    const parsed = await response.json();
-    const errorMessage = "Error " + parsed.status;
-    alert(errorMessage);
-    return errorMessage;
+  } catch (error) { 
+    throw new Error('getPeople')
   }
 };
 
@@ -56,7 +54,6 @@ export const getPlanets = async () => {
   const response = await fetch('https://swapi.co/api/planets/');
   if (response.status <= 400) {
     const parsed = await response.json();
-    console.log(parsed.results);
     return await cleanPlanets(parsed.results);
   } else { 
     const parsed = await response.json();
@@ -71,11 +68,11 @@ const cleanPlanets = async (planets) => {
     const { name, terrain, population, climate, residents } = planet;
     const residentData = await cleanResidents(residents);
     const cleaned = Object.assign({}, 
-      {name: name}, 
-      {terrain: terrain}, 
-      {climate: climate}, 
-      {population: population}, 
-      {residents: residentData.join(', ') }
+                                  {name: name}, 
+                                  {terrain: terrain}, 
+                                  {climate: climate}, 
+                                  {population: population}, 
+                                  {residents: residentData.join(', ') }
     )
     return cleaned;
   })
@@ -91,9 +88,19 @@ const cleanResidents = async (residents) => {
 }
 
 export const getVehicles = async () => {
-  console.log('get vehicles!!')
+  const vehicles = await resolveEndpoint('https://swapi.co/api/vehicles/')
+  const cleaned = await cleanVehicles(vehicles.results)
+  return cleaned;
 }
 
-const cleanVehicles = async () => {
-  
+const cleanVehicles = async (vehicles) => {
+  const unresolvedPromises = vehicles.map( async (vehicle) => {
+    const { name, model, vehicle_class, passengers } = vehicle;
+    return Object.assign({}, 
+                          {name}, 
+                          {model}, 
+                          {vehicle_class},
+                          {passengers})
+  })
+  return Promise.all(unresolvedPromises)
 }

@@ -9,10 +9,13 @@ const Card = (props) => {
       <h1>{props.name}</h1>
       <h3>{props.species}</h3>
       <h3>{props.homeworld}</h3>
-      <p>Population: {props.population}</p>
+      <p>{props.population}</p>
       <p>{props.terrain}</p>
       <p>{props.climate}</p>
       <p>{props.residents}</p>
+      <p>{props.model}</p>
+      <p>{props.vehicle_class}</p>
+      <p>{props.passengers}</p>
       <Button buttonType='light'
               buttonText='Favorite'
               function={props.favoriteCard}
