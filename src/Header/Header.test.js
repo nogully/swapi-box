@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import Header from './Header';
 import { shallow } from 'enzyme';
 import mockData from '../mockData'
-import StarWars from '../helper' 
-import Button from '../Button/Button'
 
 describe('Header', () => {
   let wrapper

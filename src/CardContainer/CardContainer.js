@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../Card/Card'
+import ErrorCard from '../Card/ErrorCard'
 import './CardContainer.css'
 
 const CardContainer = ({category, favorites, cardArray, favoriteCard}) => { //refactor to add the whole person obj
@@ -51,13 +52,13 @@ const CardContainer = ({category, favorites, cardArray, favoriteCard}) => { //re
       })
       break;
     default:
-     console.log('CardContainer switch case hates you');
      return null;
-  }
+  }          
+
 
   return (
     <div class="CardContainer">
-      { cards }
+      { cardArray.length ? cards : <ErrorCard /> }
     </div>
   )
 

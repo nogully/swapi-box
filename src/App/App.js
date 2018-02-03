@@ -3,7 +3,7 @@ import Header from '../Header/Header'
 import CardContainer from '../CardContainer/CardContainer'
 import Welcome from '../Welcome/Welcome'
 import './App.css';
-import { getPeople, getFilmCrawl, getPlanets, getVehicles } from '../apiCalls';
+import { getPeople, getFilmCrawl, getPlanets, getVehicles, getRandomInt } from '../apiCalls';
 
 class App extends Component {
   constructor() {
@@ -15,7 +15,6 @@ class App extends Component {
   }
 
   fetchData = async (event) => {
-    console.log(event.target.textContent)
     switch (event.target.textContent) {
       case 'people': 
         if (!this.state.people) {
@@ -47,12 +46,14 @@ class App extends Component {
             category: 'vehicles' })
         } else { this.setState({category: 'vehicles'}) }
         break;
-      default: console.log('error')
+      default: console.log('fetchData');
+        break;
     }
   }
 
   componentDidMount = async () => {
-    const randomFilm = await getFilmCrawl()
+    const randomNumber = getRandomInt()
+    const randomFilm = await getFilmCrawl(randomNumber)
     this.setState({ randomFilm })
   }
 
