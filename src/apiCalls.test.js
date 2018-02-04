@@ -12,7 +12,7 @@ import { resolveEndpoint,
 
 describe('apiCalls', () => {
 
-  describe('1a - resolveEndpoint', async () => {
+  describe('1 - resolveEndpoint', async () => {
     beforeAll( () => { 
       window.fetch = jest.fn().mockImplementation( () => {
         return Promise.resolve({
@@ -47,7 +47,7 @@ describe('apiCalls', () => {
     })
   })
 
-  describe('1b - getFilmCrawl', async () => {
+  describe('2 - getFilmCrawl', async () => {
     beforeAll(() => {
       window.fetch = jest.fn().mockImplementation( () => {
         return Promise.resolve({
@@ -81,19 +81,25 @@ describe('apiCalls', () => {
 
     it('should return an error if request is rejected', () => {
       window.fetch = jest.fn().mockImplementation(() => {
-        return Promise.resolve({ status: 500 }) }
-      )
+        return Promise.resolve({ status: 500 }) 
+      })
       const expectedResult = Error("Error in getFilmCrawl")
       const error = getFilmCrawl(0)
       expect(error).rejects.toEqual(expectedResult)
     })
   })
 
-  describe('2a - getPeople', () => {
-    window.fetch = jest.fn().mockImplementation( () => {
-      return Promise.resolve({
-          status: 200,
-          value:  [ {name:'Leia Organa'}, {name:'Luke Skywalker'} ]
+  describe('3 - getPeople', () => {
+    beforeAll( () => {
+      window.fetch = jest.fn().mockImplementation( () => {
+        return Promise.resolve({
+            status: 200,
+            json: () => Promise.resolve({ results: [ 
+                           {name:'Leia Organa',
+                            homeworld: undefined, 
+                            species: undefined, 
+                            population: undefined } ] })
+        })
       })
     })
 
@@ -103,39 +109,72 @@ describe('apiCalls', () => {
       expect(window.fetch).toHaveBeenCalledWith(expectedParam)
     })
 
-    it('returns an array of people if the status code is okay', async () => {
-      const expectedResponse = { results: [ {name:'Leia Organa'}, {name:'Luke Skywalker'} ] }
+    it('returns a clean array of people if the status code is okay', async () => {
+      const expectedResponse = [{"homeworld": undefined, 
+                                  "name": "Leia Organa", 
+                                  "population": undefined, 
+                                  "species": undefined}]
       const people = await getPeople()
       expect(people).toEqual(expectedResponse)
     })
 
-    it('returns an error status code if the status code is over 400', async () => {
+    it('returns an error if the status code is bad', () => {
       window.fetch = jest.fn().mockImplementation(() => {
-        return Promise.reject({
-          status: 500,
-          json: () => Promise.reject("Error") 
-        })
+        return Promise.resolve({ status: 500 }) 
       })
-      const expectedError = 'Error 500'
-      const error = await getPeople()
-      expect(error).toEqual(expectedError)
+      const expectedError = Error('Error in getPeople')
+      const error = getPeople()
+      expect(error).rejects.toEqual(expectedError)
     })
   })
 
-  describe ('2a - cleanPeople', () => {
+  describe('4 - getPlanets', () => {
+    beforeAll( () => {
+      window.fetch = jest.fn().mockImplementation( () => {
+        return Promise.resolve({
+            status: 200,
+            json: () => Promise.resolve({ results: [ 
+                           {"name":'Endor',
+                           "rotation_period": "18", 
+                            "orbital_period": "402", 
+                            "diameter": "4900", 
+                            "terrain": 'forest', 
+                            "climate": 'temperate', 
+                            "population": '30000000',
+                            "residents": [] } ] })
+        })
+      })
+    })
 
+    it('calls fetch with the correct params', () => {
+      const expectedParam = 'https://swapi.co/api/planets/'
+      getPlanets()
+      expect(window.fetch).toHaveBeenCalledWith(expectedParam)
+    })
+
+    it('returns a clean array of planets if the status code is okay', async () => {
+      const expectedResponse = [ 
+                               {"name":'Endor', 
+                                "terrain": 'forest', 
+                                "climate": 'temperate', 
+                                "population": '30000000',
+                                "residents": '' } ]
+      const planets = await getPlanets()
+      expect(planets).toEqual(expectedResponse)
+    })
+
+    it('returns an error if the status code is bad', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({ status: 500 }) 
+      })
+      const expectedError = Error('Error in getPlanets')
+      const error = getPlanets()
+      expect(error).rejects.toEqual(expectedError)
+    })
   })
 
-  describe('3a - getPlanets', () => {
-  })
 
-  describe('3b - cleanPlanets', () => {
-  })
-
-  describe('3c - cleanResidents', () => {
-  })
-
-  describe('4a getVehicles', async () => {
+  describe('5a - getVehicles', async () => {
     beforeAll( () => { 
       window.fetch = jest.fn().mockImplementation( () => {
         return Promise.resolve({
@@ -182,29 +221,29 @@ describe('apiCalls', () => {
     })
   })
 
-  describe('4b cleanVehicles', () => {
-      let mockVehicles = [
-        {
-          "name": "Sand Crawler", 
-          "model": "Digger Crawler", 
-          "passengers": "30", 
-          "cargo_capacity": "50000", 
-          "consumables": "2 months", 
-          "vehicle_class": "wheeled", 
-          "pilots": [], 
-        }
-      ]
+  describe('5b - cleanVehicles', () => {
+    let mockVehicles = [
+      {
+        "name": "Sand Crawler", 
+        "model": "Digger Crawler", 
+        "passengers": "30", 
+        "cargo_capacity": "50000", 
+        "consumables": "2 months", 
+        "vehicle_class": "wheeled", 
+        "pilots": [], 
+      }
+    ]
 
-      it('should clean the vehicles data object and return an array of objects', async () => {
-        const expectedResult = [
-                          {"name": "Sand Crawler", 
-                          "model": "Digger Crawler", 
-                          "vehicle_class": "wheeled", 
-                          "passengers": "30" }   ] 
-        const cleaned = await cleanVehicles(mockVehicles);
-        expect(cleaned).toEqual(expectedResult)
+    it('should clean the vehicles data object and return an array of objects', async () => {
+      const expectedResult = [
+                        {"name": "Sand Crawler", 
+                        "model": "Digger Crawler", 
+                        "vehicle_class": "wheeled", 
+                        "passengers": "30" }   ] 
+      const cleaned = await cleanVehicles(mockVehicles);
+      expect(cleaned).toEqual(expectedResult)
 
-      })
+    })
   })
 
   

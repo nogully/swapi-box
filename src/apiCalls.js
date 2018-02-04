@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export const resolveEndpoint = async (url) => {
   try {
     const response = await fetch(url);
@@ -5,10 +6,10 @@ export const resolveEndpoint = async (url) => {
     if (response.status <= 200) {
       return parsed;
     } else {
-      throw new Error("Error in resolveEndpoint")
+      throw new Error("Error in resolveEndpoint");
     }
   } catch (error) { 
-    throw new Error("Error in resolveEndpoint")
+    throw new Error("Error in resolveEndpoint");
   }
 };
 
@@ -38,8 +39,12 @@ export const getRandomInt = () => {
 export const getPeople = async () => {
   try {
     const response = await fetch('https://swapi.co/api/people');
-    const parsed = await response.json();
-    return cleanPeople(parsed.results);
+    const people = await response.json();
+    if (response.status <= 200) {
+      return cleanPeople(people.results);
+    } else {
+      throw new Error("Error in getPeople")
+    }
   } catch (error) { 
     throw new Error("Error in getPeople")
   }
@@ -62,15 +67,16 @@ const cleanPeople = (people) => {
 }
 
 export const getPlanets = async () => {
-  const response = await fetch('https://swapi.co/api/planets/');
-  if (response.status <= 400) {
-    const parsed = await response.json();
-    return await cleanPlanets(parsed.results);
-  } else { 
-    const parsed = await response.json();
-    const errorMessage = "Error " + parsed.status;
-    alert(errorMessage);
-    return errorMessage;
+  try {
+    const response = await fetch('https://swapi.co/api/planets/');
+    const planets = await response.json();
+    if (response.status <= 400) {
+      return cleanPlanets(planets.results);
+    } else { 
+      throw new Error("Error in getPlanets")
+    }
+  } catch (error) { 
+    throw new Error("Error in getPlanets")
   }
 }
 

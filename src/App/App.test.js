@@ -9,7 +9,6 @@ import CardContainer from '../CardContainer/CardContainer'
 
 describe('App', () => {
   let wrapper
-  // let starWarsData = new StarWars(mockData);
   let mockPerson = {
           name: "Leia Organa",
           homeworld: "https://swapi.co/api/planets/1/",

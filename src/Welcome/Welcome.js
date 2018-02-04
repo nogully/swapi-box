@@ -1,7 +1,7 @@
 import React from 'react';
 import './Welcome.css'
 
-const Welcome = (props) => {
+const Welcome = ({randomFilm}) => {
   return (
     <div className="Welcome">
     <div className="fade"></div>
@@ -11,11 +11,11 @@ const Welcome = (props) => {
       <div className="crawl">
 
         <div className="title">
-          <p>EPISODE {props.randomFilm.episode_id}</p>
-          <h1>{props.randomFilm.title}</h1>
+          <p>EPISODE {randomFilm.episode_id}</p>
+          <h1>{randomFilm.title}</h1>
         </div>
         
-        <p>{props.randomFilm.opening_crawl}</p>
+        <p>{randomFilm.opening_crawl}</p>
 
       </div>
 

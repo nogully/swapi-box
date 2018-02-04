@@ -4,10 +4,10 @@ import CardContainer from '../CardContainer/CardContainer'
 import Welcome from '../Welcome/Welcome'
 import './App.css';
 import { getPeople, 
-  getFilmCrawl, 
-  getPlanets, 
-  getVehicles, 
-  getRandomInt } from '../apiCalls';
+         getFilmCrawl, 
+         getPlanets, 
+         getVehicles, 
+         getRandomInt } from '../apiCalls';
 
 class App extends Component {
   constructor() {
@@ -61,7 +61,7 @@ class App extends Component {
         favorites: [...this.state.favorites, card] })
     } else {
       this.setState({ 
-        favorites: [...this.state.favorites.filter(favorite => favorite !== card)]})
+        favorites: [...this.state.favorites.filter(favorite => favorite !== card)] })
     }
   }
 
@@ -69,7 +69,6 @@ class App extends Component {
     const category = 'favorites'
     this.setState({ category })
   }
-
 
   render() {
     return (
