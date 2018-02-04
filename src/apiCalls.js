@@ -10,12 +10,14 @@ export const resolveEndpoint = async (url) => {
 };
 
 export const getFilmCrawl = async (randomNumber) => {
-  debugger;
   try {
     const response = await fetch('https://swapi.co/api/films/');
     const films = await response.json();
     const { title, episode_id, opening_crawl } = films.results[ randomNumber ]
-    const randomFilm = Object.assign( {}, {title}, {episode_id}, {opening_crawl} )
+    const randomFilm = Object.assign( {}, 
+                                      {title}, 
+                                      {episode_id}, 
+                                      {opening_crawl} )
     return randomFilm;
   } 
   catch (error) { 
@@ -45,10 +47,10 @@ const cleanPeople = (people) => {
     const homeworldData = await resolveEndpoint(homeworld);
     const speciesData = await resolveEndpoint(species)
     const cleaned = Object.assign({}, 
-      {name: name}, 
-      {homeworld: homeworldData.name}, 
-      {species: speciesData.name}, 
-      {population: homeworldData.population}
+                                  {name}, 
+                                  {homeworld: homeworldData.name}, 
+                                  {species: speciesData.name}, 
+                                  {population: homeworldData.population}
     )
     return cleaned;
   })
@@ -73,10 +75,10 @@ const cleanPlanets = async (planets) => {
     const { name, terrain, population, climate, residents } = planet;
     const residentData = await cleanResidents(residents);
     const cleaned = Object.assign({}, 
-                                  {name: name}, 
-                                  {terrain: terrain}, 
-                                  {climate: climate}, 
-                                  {population: population}, 
+                                  {name}, 
+                                  {terrain}, 
+                                  {climate}, 
+                                  {population}, 
                                   {residents: residentData.join(', ') }
     )
     return cleaned;
@@ -93,9 +95,14 @@ const cleanResidents = async (residents) => {
 }
 
 export const getVehicles = async () => {
-  const vehicles = await resolveEndpoint('https://swapi.co/api/vehicles/')
-  const cleaned = await cleanVehicles(vehicles.results)
-  return cleaned;
+  try { 
+    const vehicles = await resolveEndpoint('https://swapi.co/api/vehicles/')
+    const cleaned = await cleanVehicles(vehicles.results)
+    return cleaned
+  } catch (error) { 
+    console.log('getVehicles')
+    return "Error"
+  }
 }
 
 export const cleanVehicles = async (vehicles) => {

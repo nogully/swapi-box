@@ -3,7 +3,11 @@ import Header from '../Header/Header'
 import CardContainer from '../CardContainer/CardContainer'
 import Welcome from '../Welcome/Welcome'
 import './App.css';
-import { getPeople, getFilmCrawl, getPlanets, getVehicles, getRandomInt } from '../apiCalls';
+import { getPeople, 
+  getFilmCrawl, 
+  getPlanets, 
+  getVehicles, 
+  getRandomInt } from '../apiCalls';
 
 class App extends Component {
   constructor() {
