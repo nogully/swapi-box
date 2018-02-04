@@ -1,15 +1,18 @@
 /* eslint-disable */
-import { getPeople,
-         resolveEndpoint,
+import { resolveEndpoint,
+         getFilmCrawl,
+         getPeople,
+         cleanPeople,
          getPlanets, 
+         cleanPlanets,
+         cleanResidents,
          getVehicles, 
-         getFilmCrawl, 
          cleanVehicles
        } from './apiCalls' 
 
 describe('apiCalls', () => {
 
-  describe('resolveEndpoint', async () => {
+  describe('1a - resolveEndpoint', async () => {
     beforeAll( () => { 
       window.fetch = jest.fn().mockImplementation( () => {
         return Promise.resolve({
@@ -34,20 +37,17 @@ describe('apiCalls', () => {
       expect(planet.value).toEqual(expectedResult)
     })
 
-    it('should return an error if request is rejected', async () => {
+    it('should return an error if request is rejected',  () => {
       window.fetch = jest.fn().mockImplementation(() => {
-        return Promise.reject({
-          status: 500,
-          json: () => Promise.reject("Error") 
-        })
-      })
-      const expectedResult = "Error"
-      const error = await resolveEndpoint('https://swapi.co/api/planets/1/')
-      expect(error).toEqual(expectedResult)
+        return Promise.resolve({ status: 500 }) }
+      )
+      const expectedResult = Error("Error in resolveEndpoint")
+      const error = resolveEndpoint('url')
+      expect(error).rejects.toEqual(expectedResult)
     })
   })
 
-  describe('getFilmCrawl', async () => {
+  describe('1b - getFilmCrawl', async () => {
     beforeAll(() => {
       window.fetch = jest.fn().mockImplementation( () => {
         return Promise.resolve({
@@ -79,20 +79,63 @@ describe('apiCalls', () => {
       expect(filmData).toEqual(expectedResult)
     })
 
-    it('should return an error if request is rejected', async () => {
+    it('should return an error if request is rejected', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({ status: 500 }) }
+      )
+      const expectedResult = Error("Error in getFilmCrawl")
+      const error = getFilmCrawl(0)
+      expect(error).rejects.toEqual(expectedResult)
+    })
+  })
+
+  describe('2a - getPeople', () => {
+    window.fetch = jest.fn().mockImplementation( () => {
+      return Promise.resolve({
+          status: 200,
+          value:  [ {name:'Leia Organa'}, {name:'Luke Skywalker'} ]
+      })
+    })
+
+    it('calls fetch with the correct params', () => {
+      const expectedParam = 'https://swapi.co/api/people'
+      getPeople()
+      expect(window.fetch).toHaveBeenCalledWith(expectedParam)
+    })
+
+    it('returns an array of people if the status code is okay', async () => {
+      const expectedResponse = { results: [ {name:'Leia Organa'}, {name:'Luke Skywalker'} ] }
+      const people = await getPeople()
+      expect(people).toEqual(expectedResponse)
+    })
+
+    it('returns an error status code if the status code is over 400', async () => {
       window.fetch = jest.fn().mockImplementation(() => {
         return Promise.reject({
           status: 500,
           json: () => Promise.reject("Error") 
         })
       })
-      const expectedResult = "Error"
-      const error = await resolveEndpoint('https://swapi.co/api/films/1/')
-      expect(error).toEqual(expectedResult)
+      const expectedError = 'Error 500'
+      const error = await getPeople()
+      expect(error).toEqual(expectedError)
     })
   })
 
-  describe('getVehicles', async () => {
+  describe ('2a - cleanPeople', () => {
+
+  })
+
+  describe('3a - getPlanets', () => {
+  })
+
+  describe('3b - cleanPlanets', () => {
+  })
+
+  describe('3c - cleanResidents', () => {
+  })
+
+  describe('4a getVehicles', async () => {
     beforeAll( () => { 
       window.fetch = jest.fn().mockImplementation( () => {
         return Promise.resolve({
@@ -139,7 +182,7 @@ describe('apiCalls', () => {
     })
   })
 
-  describe('cleanVehicles', () => {
+  describe('4b cleanVehicles', () => {
       let mockVehicles = [
         {
           "name": "Sand Crawler", 
@@ -164,41 +207,7 @@ describe('apiCalls', () => {
       })
   })
 
-
- // describe('getPeople', () => {
-  //   window.fetch = jest.fn().mockImplementation( () => {
-  //     return Promise.resolve({
-  //       status: 200, 
-  //       json: () => Promise.resolve( {
-  //         status: 200,
-  //         value:  [ {name:'Leia Organa'}, {name:'Luke Skywalker'} ]
-  //       })
-  //     })
-  //   })
-
-  //   it('calls fetch with the correct params', () => {
-  //     const expectedParam = 'https://swapi.co/api/people'
-  //     getPeople()
-  //     expect(window.fetch).toHaveBeenCalledWith(expectedParam)
-  //   })
-
-  //   it('returns an array of people if the status code is okay', async () => {
-  //     const expectedResponse = { results: [ {name:'Leia Organa'}, {name:'Luke Skywalker'} ] }
-  //     const people = await getPeople()
-  //     expect(people).toEqual(expectedResponse)
-  //   })
-
-  //   it('returns an error status code if the status code is over 400', async () => {
-  //     window.fetch = jest.fn().mockImplementation(() => {
-  //       return Promise.reject({
-  //         status: 500,
-  //         json: () => Promise.reject("Error") 
-  //       })
-  //     })
-  //     const expectedError = 'Error 500'
-  //     const error = await getPeople()
-  //     expect(error).toEqual(expectedError)
-  //   })
-  // })
+  
+ 
 
 })

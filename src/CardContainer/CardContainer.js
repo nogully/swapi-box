@@ -4,57 +4,16 @@ import ErrorCard from '../Card/ErrorCard'
 import './CardContainer.css'
 import PropTypes from 'prop-types'
 
-const CardContainer = ({category, favorites, cardArray, favoriteCard}) => { 
-  var cards = [];
-  switch (category) {
-    case 'people': 
-      cards = cardArray.map((person, index) => {
-        const isActive = favorites.includes(person) ? 'active' : ''
-        return (
-          <Card data={ person }
-                favoriteCard={favoriteCard}
-                isActive={isActive}
-                key={ person.name } />
-          ) 
-      })
-      break;
-    case 'planets':
-      cards = cardArray.map((planet, index) => {
-        const isActive = favorites.includes(planet) ? 'active' : ''
-        return (
-          <Card data={ planet }
-                favoriteCard={favoriteCard}
-                isActive={isActive}
-                key={ planet.name } />
-          ) 
-      })
-      break;
-    case 'vehicles':
-      cards = cardArray.map((vehicle, index) => {
-        const isActive = favorites.includes(vehicle) ? 'active' : ''
-        return (
-          <Card data={ vehicle } 
-                favoriteCard={ favoriteCard }
-                isActive={ isActive }
-                key={ vehicle.name } />
-          ) 
-      })
-      break;
-
-    case 'favorites':
-      cards = cardArray.map((favorite, index) => {
-        const isActive = favorites.includes(favorite) ? 'active' : ''
-        return (
-          <Card data={ favorite } 
-                isActive={isActive} 
-                favoriteCard={ favoriteCard }
-                key={ favorite.name } />
-          ) 
-      })
-      break;
-    default:
-     return null;
-  }          
+const CardContainer = ({ favorites, cardArray, favoriteCard}) => { 
+  const cards = cardArray.map((card, index) => {
+    const isActive = favorites.includes(card) ? 'active' : '';
+    return (
+      <Card data={ card }
+            favoriteCard={favoriteCard}
+            isActive={isActive}
+            key={ index } />
+    ) 
+  })          
 
 
   return (
@@ -67,7 +26,6 @@ const CardContainer = ({category, favorites, cardArray, favoriteCard}) => {
 CardContainer.propTypes = {
   cardArray: PropTypes.array.isRequired,
   favoriteCard: PropTypes.func.isRequired, 
-  category: PropTypes.string.isRequired,
   favorites: PropTypes.array.isRequired
 }
 
