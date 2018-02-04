@@ -2,19 +2,36 @@
 
 exports[`Card exists and matches snapshot 1`] = `
 <article
-  className="Card undefined"
+  className="Card active"
 >
-  <h1 />
-  <h3 />
-  <h3>
-    Homeworld: 
-  </h3>
-  <h3>
-    Population: 
-  </h3>
-  <Button
-    buttonText="Favorite"
-    buttonType="light"
-  />
+  <h1>
+    Endor
+  </h1>
+  <p
+    key="terrain"
+  >
+    terrain : forest
+  </p>
+  <p
+    key="climate"
+  >
+    climate : temperate
+  </p>
+  <p
+    key="population"
+  >
+    population : 30000000
+  </p>
+  <p
+    key="residents"
+  >
+    residents : Ewoks
+  </p>
+  <button
+    className="light"
+    onClick={[Function]}
+  >
+    favorite
+  </button>
 </article>
 `;

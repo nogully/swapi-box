@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardContainer exists and matches snapshot 1`] = `
+<div
+  className="CardContainer"
+>
+  <Card
+    data={
+      Object {
+        "climate": "temperate",
+        "name": "Endor",
+        "population": "30000000",
+        "residents": "Ewoks",
+        "terrain": "forest",
+      }
+    }
+    favoriteCard={[Function]}
+    isActive=""
+    key="Endor"
+  />
+</div>
+`;
