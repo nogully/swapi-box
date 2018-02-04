@@ -2,9 +2,10 @@ import React from 'react';
 import Card from '../Card/Card'
 import ErrorCard from '../Card/ErrorCard'
 import './CardContainer.css'
+import PropTypes from 'prop-types'
 
-const CardContainer = ({category, favorites, cardArray, favoriteCard}) => { //refactor to add the whole person obj
-  var cards = []
+const CardContainer = ({category, favorites, cardArray, favoriteCard}) => { 
+  var cards = [];
   switch (category) {
     case 'people': 
       cards = cardArray.map((person, index) => {
@@ -61,7 +62,13 @@ const CardContainer = ({category, favorites, cardArray, favoriteCard}) => { //re
       { cardArray.length ? cards : <ErrorCard /> }
     </div>
   )
+}
 
+CardContainer.propTypes = {
+  cardArray: PropTypes.array.isRequired,
+  favoriteCard: PropTypes.func.isRequired, 
+  category: PropTypes.string.isRequired,
+  favorites: PropTypes.array.isRequired
 }
 
 export default CardContainer;

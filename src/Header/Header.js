@@ -1,7 +1,7 @@
 import React from 'react' 
 import logo from './Star_Wars_Yellow_Logo.svg'
-// import Button from '../Button/Button'
 import './Header.css'
+import PropTypes from 'prop-types';
 
 const Header = ({ fetchData, displayFavorites }) => {
   return (
@@ -21,17 +21,9 @@ const Header = ({ fetchData, displayFavorites }) => {
   )
 }
 
-export default Header;
+Header.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+  displayFavorites: PropTypes.func.isRequired
+}
 
-  //        <Button buttonType='light'
-  //               buttonText='people'
-  //               buttonFunction={props.fetchData}/>
-  //       <Button buttonType='light'
-  //               buttonText='planets'
-  //               buttonFunction={props.fetchData}/>
-  //       <Button buttonType='light'
-  //               buttonText='vehicles'
-  //               buttonFunction={props.fetchData}/>
-  //       <Button buttonType='dark'
-  //               buttonText='favorites'
-  //               buttonFunction={props.displayFavorites}/>
+export default Header;
