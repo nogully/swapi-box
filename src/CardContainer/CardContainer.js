@@ -4,19 +4,19 @@ import ErrorCard from '../Card/ErrorCard'
 import './CardContainer.css'
 import PropTypes from 'prop-types'
 
-const CardContainer = ({ category, favorites, cardArray, favoriteCard}) => { 
-  const cards = cardArray.map((card, index) => {
+const CardContainer = ({ category, cardArray, favorites, favoriteCard}) => { 
+  const cards = cardArray.map( card => {
     const isActive = favorites.includes(card) ? 'active' : '';
     return (
       <Card data={ card }
             favoriteCard={favoriteCard}
             isActive={isActive}
-            key={ index } />
+            key={ card.name } />
     ) 
   })          
 
   return (
-    <div class="CardContainer">
+    <div className="CardContainer">
       { category === 'favorites' && !favorites.length ? <ErrorCard /> : null }
       { cards }
     </div>
