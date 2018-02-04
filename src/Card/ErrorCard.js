@@ -1,15 +1,11 @@
 import React from 'react';
 
-const ErrorCard = ({ data, favoriteCard, isActive, key }) => {
-  const attributes = Object.keys(data).filter( attribute => attribute !== 'name')
-  const elements = attributes.map( (attribute, index) => {
-    return <p key={index}>{`${attribute} : ${data[attribute]}`}</p>
-  })
+const ErrorCard = () => {
 
   return (
     <article className={ "Error " } >
-      <h1>Error</h1>
-      <p>There are no favorites</p>
+      <h1>Patience!</h1>
+      <p>You don't have any favorites!</p> 
     </article>
   )
 

@@ -83,8 +83,11 @@ class App extends Component {
       <div className="div">
         <Header buttonType={this.buttonType} buttonText={this.buttonText} fetchData={this.fetchData} displayFavorites={this.displayFavorites}/>
 
-        { this.state.people || this.state.vehicles || this.state.planets ?
-        <CardContainer favoriteCard={this.favoriteCard} favorites={this.state.favorites} category={this.state.category} cardArray={this.state[this.state.category]} /> : <Welcome randomFilm={this.state.randomFilm} /> 
+        { this.state.people || this.state.vehicles || this.state.planets || (this.state.category === 'favorites') ?
+          <CardContainer favoriteCard={this.favoriteCard} 
+                         favorites={this.state.favorites} 
+                         category={this.state.category} 
+                         cardArray={this.state[this.state.category]} /> : <Welcome randomFilm={this.state.randomFilm} /> 
         }
         
       </div>
