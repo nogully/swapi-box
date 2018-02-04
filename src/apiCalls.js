@@ -2,10 +2,13 @@ export const resolveEndpoint = async (url) => {
   try {
     const response = await fetch(url);
     const parsed = await response.json();
-    return parsed;
+    if (response.status <= 200) {
+      return parsed;
+    } else {
+      throw new Error("Error in resolveEndpoint")
+    }
   } catch (error) { 
-    console.log('resolveEndpoint')
-    return "Error"
+    throw new Error("Error in resolveEndpoint")
   }
 };
 
@@ -13,16 +16,18 @@ export const getFilmCrawl = async (randomNumber) => {
   try {
     const response = await fetch('https://swapi.co/api/films/');
     const films = await response.json();
-    const { title, episode_id, opening_crawl } = films.results[ randomNumber ]
-    const randomFilm = Object.assign( {}, 
-                                      {title}, 
-                                      {episode_id}, 
-                                      {opening_crawl} )
-    return randomFilm;
-  } 
-  catch (error) { 
-    console.log('getFilmCrawl')
-    return "Error"
+    if (response.status <= 200) {
+      const { title, episode_id, opening_crawl } = films.results[ randomNumber ]
+      const randomFilm = Object.assign( {}, 
+                                        {title}, 
+                                        {episode_id}, 
+                                        {opening_crawl} )
+      return randomFilm;
+    } else {
+      throw new Error("Error in getFilmCrawl")
+    }
+  } catch (error) { 
+    throw new Error("Error in getFilmCrawl")
   }
 }
 
@@ -36,8 +41,7 @@ export const getPeople = async () => {
     const parsed = await response.json();
     return cleanPeople(parsed.results);
   } catch (error) { 
-    console.log('getPeople')
-    return "Error"
+    throw new Error("Error in getPeople")
   }
 };
 
