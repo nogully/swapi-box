@@ -5,8 +5,8 @@ This is a project to show information using the [Star Wars API](https://swapi.co
 
 #### Example of people cards:  
 
-![people cards](./swapi_people.png)  
+![people cards](./src/swapi_people.png)  
 
 #### Cards are able to be favorited and persist:  
 
-![favorite cards](./swapi_favorites.png)  
+![favorite cards](./src/swapi_favorites.png)  
