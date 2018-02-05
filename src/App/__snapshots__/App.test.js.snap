@@ -13,17 +13,3 @@ exports[`App should exist and match snapshot 1`] = `
   />
 </div>
 `;
-
-exports[`App should have a default state of empty film and faves 1`] = `
-<div
-  className="div"
->
-  <Header
-    displayFavorites={[Function]}
-    fetchData={[Function]}
-  />
-  <Welcome
-    randomFilm={Object {}}
-  />
-</div>
-`;

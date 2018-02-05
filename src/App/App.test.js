@@ -51,7 +51,7 @@ describe('App', () => {
 
   it('on button click (people, planets, vehicles), resets the state with the corresponding array after adding a category', async () => {
     expect(wrapper.state().category).toEqual(undefined)
-    mockEvent = {target: {textContent: 'people'} } 
+    mockEvent = { event: {target: {textContent: 'people'} } }
     window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
           status: 200,
           json: () => Promise.resolve({  })
@@ -67,11 +67,10 @@ describe('App', () => {
   })
   
   it.skip('populates the CardContainer with the correct kind of cards', async () => {
- 
   })
 
-  it.skip('on click of Favorite button, adds Favorited cards to the state.favorites array', async () => {
- 
+  it.skip('on click of Favorite button, adds Favorited cards to the state.favorites array', () => {
+    
   })
 
   it.skip('on 2nd click of Favorite button, removes un-Favorited cards from the state.favorites array', async () => {

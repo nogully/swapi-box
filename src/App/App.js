@@ -44,7 +44,7 @@ class App extends Component {
             category: 'vehicles' })
         } else { this.setState({category: 'vehicles'}) }
         break;
-      default: console.log('fetchData');
+      default:
         break;
     }
   }
