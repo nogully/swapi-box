@@ -18,6 +18,12 @@ class App extends Component {
     }
   }
 
+  componentDidMount = async () => {
+    const randomNumber = getRandomInt()
+    const randomFilm = await getFilmCrawl(randomNumber)
+    this.setState({ randomFilm })
+  }
+
   fetchData = async (event) => {
     switch (event.target.textContent) {
       case 'people': 
@@ -47,12 +53,6 @@ class App extends Component {
       default:
         break;
     }
-  }
-
-  componentDidMount = async () => {
-    const randomNumber = getRandomInt()
-    const randomFilm = await getFilmCrawl(randomNumber)
-    this.setState({ randomFilm })
   }
 
   favoriteCard = (card) => {
