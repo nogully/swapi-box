@@ -1,7 +1,8 @@
 import React from 'react';
 import './Welcome.css'
+import PropTypes from 'prop-types'
 
-const Welcome = ({randomFilm}) => {
+const Welcome = ({ randomFilm }) => {
   return (
     <div className="Welcome">
     <div className="fade"></div>
@@ -23,6 +24,10 @@ const Welcome = ({randomFilm}) => {
     </div>
   )
 
+}
+
+Welcome.propTypes = {
+  randomFilm: PropTypes.object.isRequired,
 }
 
 export default Welcome;

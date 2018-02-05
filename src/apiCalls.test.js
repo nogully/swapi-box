@@ -25,7 +25,7 @@ describe('apiCalls', () => {
       })
     })
 
-    it('should call fetch with the expected param', () => {
+    it('should call fetch with the expected parameter', () => {
       const expectedParam = 'https://swapi.co/api/planets/1/'
       resolveEndpoint(expectedParam)
       expect(window.fetch).toHaveBeenCalledWith(expectedParam)
@@ -65,7 +65,7 @@ describe('apiCalls', () => {
       })
     })
 
-    it('should call fetch with the expected param', () => {
+    it('should call fetch with the expected parameter', () => {
       const expectedParam = 'https://swapi.co/api/films/'
       getFilmCrawl(0)
       expect(window.fetch).toHaveBeenCalledWith(expectedParam)
@@ -103,7 +103,7 @@ describe('apiCalls', () => {
       })
     })
 
-    it('calls fetch with the correct params', () => {
+    it('calls fetch with the correct parameter', () => {
       const expectedParam = 'https://swapi.co/api/people'
       getPeople()
       expect(window.fetch).toHaveBeenCalledWith(expectedParam)
@@ -146,7 +146,7 @@ describe('apiCalls', () => {
       })
     })
 
-    it('calls fetch with the correct params', () => {
+    it('calls fetch with the correct parameter', () => {
       const expectedParam = 'https://swapi.co/api/planets/'
       getPlanets()
       expect(window.fetch).toHaveBeenCalledWith(expectedParam)
@@ -192,9 +192,9 @@ describe('apiCalls', () => {
       })
     })
 
-    it('should call fetch with the expected param', () => {
+    it('should call fetch with the expected parameter', () => {
       const expectedParam = 'https://swapi.co/api/vehicles/'
-      getVehicles(expectedParam)
+      getVehicles()
       expect(window.fetch).toHaveBeenCalledWith(expectedParam)
     })
 
@@ -208,21 +208,10 @@ describe('apiCalls', () => {
       expect(vehicles).toEqual(expectedResult)
     })
 
-    it('should return an error if the request is rejected', async () => {
-      window.fetch = jest.fn().mockImplementation(() => {
-        return Promise.reject({
-          status: 500,
-          json: () => Promise.reject(["Error"]) 
-        })
-      })
-      const expectedResult = "Error"
-      const error = await getVehicles()
-      expect(error).toEqual(expectedResult)
-    })
   })
 
   describe('5b - cleanVehicles', () => {
-    let mockVehicles = [
+    const mockVehicles = [
       {
         "name": "Sand Crawler", 
         "model": "Digger Crawler", 

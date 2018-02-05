@@ -3,10 +3,6 @@
   
 }
 
-img {
-  width: 400px;
-}
-
 .App-title {
   font-size: 1.5em;
 }
@@ -25,14 +21,14 @@ button {
   margin: 10px;
 }
 
-button:hover {
-  background-color: #EEE;
-  box-shadow: 2px 2px 5px purple;
-}
-
 .dark {
   background-color: purple;
   color: white;
+}
+
+.dark:hover {
+  background-color: #9D2EAF;
+  box-shadow: 2px 2px 5px purple;
 }
 
 .light {
@@ -41,9 +37,13 @@ button:hover {
   font-weight: bold;
 }
 
+.light:hover {
+  background-color: #FFF;
+  box-shadow: 2px 2px 5px purple;
+}
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-

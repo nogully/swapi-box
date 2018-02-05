@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome should exist and match snapshot 1`] = `
+<div
+  className="Welcome"
+>
+  <div
+    className="fade"
+  />
+  <section
+    className="star-wars"
+  >
+    <div
+      className="crawl"
+    >
+      <div
+        className="title"
+      >
+        <p>
+          EPISODE 
+          4
+        </p>
+        <h1>
+          A New Hope
+        </h1>
+      </div>
+      <p>
+        It is a period of civil war.
+      </p>
+    </div>
+  </section>
+</div>
+`;
