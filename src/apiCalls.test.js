@@ -208,6 +208,18 @@ describe('apiCalls', () => {
       expect(vehicles).toEqual(expectedResult)
     })
 
+    it('should return an error if the request is rejected', async () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.reject({
+          status: 500,
+          json: () => Promise.reject(["Error"]) 
+        })
+      })
+      const expectedResult = "Error"
+      const error = await getVehicles()
+      expect(error).toEqual(expectedResult)
+    })
+
   })
 
   describe('5b - cleanVehicles', () => {

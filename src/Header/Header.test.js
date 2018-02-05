@@ -16,6 +16,7 @@ describe('Header', () => {
   })  
 
   it('should have a people, planets, vehicles and favorites button', () => {
+    expect(wrapper).toBeDefined();
     expect(wrapper).toMatchSnapshot();
   })
 

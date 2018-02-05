@@ -1,75 +1,69 @@
 /* eslint-disable */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import App from './App';
 import { shallow } from 'enzyme';
-import { resolveEndpoint,
-         getFilmCrawl,
-         getPeople,
-         cleanPeople,
-         getPlanets, 
-         cleanPlanets,
-         cleanResidents,
-         getVehicles, 
-         cleanVehicles
-       } from '../apiCalls' 
+import Header from '../Header/Header'
 import CardContainer from '../CardContainer/CardContainer'
+import Welcome from '../Welcome/Welcome'
 
+window.fetch = jest.fn() 
 
 describe('App', () => {
   let wrapper
-  let mockPerson = {
-          name: "Leia Organa",
-          homeworld: "https://swapi.co/api/planets/1/",
-          species: "Human",
-          population: "https://swapi.co/api/planets/1/"
-        }
-  let mockFilm = {
-          title: "A New Hope"
-        }
-  let getRandomInt = jest.fn()
-  let getFilmCrawl = jest.fn().mockImplementation( () => {  
-      return Promise.resolve ({ 
-                     "title": "A New Hope", 
-                     "episode_id": 4,
-                     "opening_crawl": "It is a period of civil war."}) }) 
-
-  let expectedParam
+  let getFilmCrawl
+  let expectedParam 
+  let mockEvent
+  let randomFilm = {  "title": "A New Hope", 
+                      "episode_id": 4,
+                      "opening_crawl": "It is a period of civil war." }
 
   beforeEach(() => {
-    wrapper = shallow(<App />);
-    window.fetch = jest.fn().mockImplementation( () => {
-      return Promise.resolve({
-        status: 200, 
-        json: () => Promise.resolve( {
+    wrapper = shallow(<App />, {disableLifecycleMethods: true});
+    getFilmCrawl = jest.fn().mockImplementation(() => Promise.resolve(randomFilm
+  
+        )
+    )
+    window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
           status: 200,
-          value:  [ { title: 'A New Hope'} ]
+          json: () => Promise.resolve({  })
         })
-      })
-    })
+      )
   })
 
-  it('exists and matches snapshot', () => {
+  it('should exist and match snapshot', () => {
     expect(wrapper).toBeDefined();
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should start with an empty favorites state', () => {
-    expect(wrapper.state('favorites')).toEqual([])
+  it('should have a default state of empty film and faves', () => {
+    const defaultState = { 
+      randomFilm: {},
+      favorites: [] };
+    expect(wrapper.state()).toEqual(defaultState);
+  });
+
+  it('fetches randomFilm upon componentDidMount', async () => {
+    expect(wrapper.state('randomFilm')).toEqual({});
+    await wrapper.instance().componentDidMount()
+    expect(getFilmCrawl).toHaveBeenCalled();
+    expect(wrapper.state('randomFilm')).toEqual(randomFilm)
   })
 
-  it('should start with a randomFilm state object from which to draw the crawl', () => {
-    // expect(wrapper.state('randomFilm').title).toEqual('A New Hope')
-  })
-
-  it.skip('on button click (people, planets, vehicles), resets the state with the corresponding array after adding a category', async () => {
-   
+  it('on button click (people, planets, vehicles), resets the state with the corresponding array after adding a category', async () => {
+    expect(wrapper.state().category).toEqual(undefined)
+    mockEvent = {target: {textContent: 'people'} } 
+    window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
+          status: 200,
+          json: () => Promise.resolve({  })
+        })
+      )
+    await wrapper.instance().fetchData(mockEvent)
+    wrapper.update();
+    expect(wrapper.state('people').length).toEqual(1)
   })
 
   it.skip('calls fetch with the correct params', () => {
     expectedParam = 'https://swapi.co/api/people'
-
-   
   })
   
   it.skip('populates the CardContainer with the correct kind of cards', async () => {
