@@ -14,21 +14,25 @@ exports[`Header should have a people, planets, vehicles and favorites button 1`]
   >
     <button
       className="light"
+      onClick={[Function]}
     >
       people
     </button>
     <button
       className="light"
+      onClick={[Function]}
     >
       planets
     </button>
     <button
       className="light"
+      onClick={[Function]}
     >
       vehicles
     </button>
     <button
       className="dark"
+      onClick={[Function]}
     >
       favorites
     </button>

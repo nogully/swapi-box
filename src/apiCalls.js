@@ -110,7 +110,6 @@ export const getVehicles = async () => {
     const cleaned = await cleanVehicles(vehicles.results)
     return cleaned
   } catch (error) { 
-    console.log('getVehicles')
     return "Error"
   }
 }

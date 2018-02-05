@@ -3,7 +3,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { shallow } from 'enzyme';
-import * as apiCalls from '../apiCalls'
+import { resolveEndpoint,
+         getFilmCrawl,
+         getPeople,
+         cleanPeople,
+         getPlanets, 
+         cleanPlanets,
+         cleanResidents,
+         getVehicles, 
+         cleanVehicles
+       } from '../apiCalls' 
 import CardContainer from '../CardContainer/CardContainer'
 
 
@@ -18,20 +27,26 @@ describe('App', () => {
   let mockFilm = {
           title: "A New Hope"
         }
+  let getRandomInt = jest.fn()
+  let getFilmCrawl = jest.fn().mockImplementation( () => {  
+      return Promise.resolve ({ 
+                     "title": "A New Hope", 
+                     "episode_id": 4,
+                     "opening_crawl": "It is a period of civil war."}) }) 
 
-  window.fetch = jest.fn().mockImplementation( () => {
-    return Promise.resolve({
-      status: 200, 
-      json: () => Promise.resolve( {
-        status: 200,
-        value:  [ { title: 'A New Hope'} ]
-      })
-    })
-  })
+  let expectedParam
 
   beforeEach(() => {
     wrapper = shallow(<App />);
-    const expectedParams = 'https://swapi.co/api/people'
+    window.fetch = jest.fn().mockImplementation( () => {
+      return Promise.resolve({
+        status: 200, 
+        json: () => Promise.resolve( {
+          status: 200,
+          value:  [ { title: 'A New Hope'} ]
+        })
+      })
+    })
   })
 
   it('exists and matches snapshot', () => {
@@ -52,6 +67,8 @@ describe('App', () => {
   })
 
   it.skip('calls fetch with the correct params', () => {
+    expectedParam = 'https://swapi.co/api/people'
+
    
   })
   
