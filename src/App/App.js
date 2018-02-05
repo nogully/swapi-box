@@ -23,26 +23,26 @@ class App extends Component {
       case 'people': 
         if (!this.state.people) {
           const people = await getPeople()
-          this.setState({ 
-            people: people,
-            category: 'people' })
-        } else { this.setState({category: 'people'}) }
+          this.setState({ people, category: 'people' })
+        } else { 
+          this.setState({category: 'people'}) 
+        }
         break;
       case 'planets':
         if (!this.state.planets) {
           const planets = await getPlanets()
-          this.setState({ 
-            planets: planets,
-            category: 'planets' })
-        } else { this.setState({category: 'planets'}) }
+          this.setState({ planets, category: 'planets' })
+        } else { 
+          this.setState({category: 'planets'}) 
+        }
         break;
       case 'vehicles':
         if (!this.state.vehicles) {
           const vehicles = await getVehicles()
-          this.setState({ 
-            vehicles: vehicles,
-            category: 'vehicles' })
-        } else { this.setState({category: 'vehicles'}) }
+          this.setState({ vehicles, category: 'vehicles' })
+        } else { 
+          this.setState({category: 'vehicles'}) 
+        }
         break;
       default:
         break;
@@ -73,7 +73,10 @@ class App extends Component {
   render() {
     return (
       <div className="div">
-        <Header buttonType={this.buttonType} buttonText={this.buttonText} fetchData={this.fetchData} displayFavorites={this.displayFavorites}/>
+        <Header buttonType={this.buttonType} 
+                buttonText={this.buttonText} 
+                fetchData={this.fetchData} 
+                displayFavorites={this.displayFavorites}/>
 
         { this.state.people || this.state.vehicles 
           || this.state.planets || (this.state.category === 'favorites') ?
